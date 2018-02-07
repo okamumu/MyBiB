@@ -1,4 +1,7 @@
 require 'yaml'
+require 'net/https'
+require 'uri'
+require 'json'
 
 module LDBib
 
@@ -177,6 +180,27 @@ module LDBib
         load(f.read, keys, filters, datatype)
       }
   end
+
+  def get_gists(name, id)
+    base_url = "https://api.github.com"
+    uri = URI.parse(base_url + "/gists/#{id}")
+    # puts "Load from #{uri}"
+    https = Net::HTTP.new(uri.host, uri.port)
+    https.use_ssl = true
+    https.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    req = Net::HTTP::Get.new(uri.path)
+    res = https.start do |x|
+      x.request(req)
+    end
+    result = JSON(res.body)
+    result["files"][name]["content"]
+  end
+
+  def load_gists(name, id, keys = Keys, filters = Filters, datatype = :hash)
+    str = get_gists(name, id)
+    load(str, keys, filters, datatype)
+  end
+
   ### filters
 
   class Filter

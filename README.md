@@ -38,9 +38,9 @@ title: XXX
 # 逆に言うとキーは必ず頭に空白入れてはダメ
 ```
 
-- datatype :hash にすると一番最初のフィールドの value がキーとなる hash を作る
-- すべてのレコードに入れるフィールドは先頭に @ マークをつける
-- 各フィールドの value を加工する filters を設定可能
+- datatype :hash にすると一番最初のフィールドの value がキーとなる hash を作る（<-謎？）
+- すべてのレコードに入れるフィールドは先頭に @ マークをつける（<-謎？）
+- 各フィールドの value を加工する filters を設定可能（使いやすいかどうかは謎）
     - Filter, ArrayFilter, SymbolFilter は最初からある．例えば DataFilter は ArrayFilter の拡張なので，継承して，
     ```
     class DateFilter < ArrayFilter
@@ -51,7 +51,8 @@ title: XXX
     ```
     とかき，filters ハッシュに
     ```
-    filters[:date] = DataFilter.new
+    filters[:date] = DateFilter.new
     ```
     として登録する．
+- モジュール LDBib 内にデフォルトのフィルタ Filters が定義してある．
 - keys については登録済みのものだけ
