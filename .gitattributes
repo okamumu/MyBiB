@@ -1,0 +1,12 @@
+#
+*	text=auto
+
+*.txt	text eol=crlf
+*.md  text eol=crlf
+*.css text eol=crlf
+*.sh  text eol=lf
+
+*.eps binary
+*.ps  binary
+*.pdf binary
+*.png binary
